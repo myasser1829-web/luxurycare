@@ -174,8 +174,19 @@ const intlPhone = (p) => {
   const d = String(p ?? '').replace(/\D/g, '');
   return d.startsWith('20') ? d : d.startsWith('0') ? '2' + d : d;
 };
-const waConfirm = (b) => `https://wa.me/${intlPhone(b.phone)}?text=` + encodeURIComponent(
-  `أهلًا ${b.name}، معاك LuxuryCare. حجزك رقم ${b.id} يوم ${fmtDay(b.preferred_day)} الساعة ${fmtHour(b.preferred_slot)} اتأكد. شكرًا لثقتك!`);
+// ════════ بيانات الدفع والعنوان اللي بتتبعت للعميل في رسالة التأكيد ════════
+const SHOP_INFO = { instapay: '', wallet: '', address: '' };
+// ═════════════════════════════════════════════════════════════════
+const fill = (v, hint) => v || `[${hint}]`;
+const waConfirm = (b) => `https://wa.me/${intlPhone(b.phone)}?text=` + encodeURIComponent([
+  `أهلًا ${b.name}، معاك LuxuryCare.`,
+  `حجزك رقم ${b.id} يوم ${fmtDay(b.preferred_day)} الساعة ${fmtHour(b.preferred_slot)} اتأكد ✅`,
+  `الإجمالي: ${money(b.estimated_total)}`,
+  b.service_mode === 'shop' ? `عنوان المحل: ${fill(SHOP_INFO.address, 'اكتب العنوان')}` : '',
+  b.payment_method === 'instapay' ? `الدفع إنستاباي على: ${fill(SHOP_INFO.instapay, 'اكتب عنوان الإنستاباي')}\nابعتلنا صورة التحويل هنا لو سمحت.` : '',
+  b.payment_method === 'wallet' ? `الدفع على المحفظة: ${fill(SHOP_INFO.wallet, 'اكتب رقم المحفظة')}\nابعتلنا صورة التحويل هنا لو سمحت.` : '',
+  'شكرًا لثقتك!',
+].filter(Boolean).join('\n'));
 
 let bookings = [];
 let filter = 'all';

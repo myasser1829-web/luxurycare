@@ -212,10 +212,6 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px;paddin
               <datalist id="modelList"></datalist>
             </div>
           </div>
-          <div class="two">
-            <div class="field"><label for="carYear">سنة الصنع</label><input type="text" id="carYear" inputmode="numeric" maxlength="4" placeholder="اختياري"></div>
-            <div class="field"><label for="plate">رقم اللوحة</label><input type="text" id="plate" placeholder="اختياري"></div>
-          </div>
         </fieldset>
 
         <fieldset>
@@ -316,9 +312,9 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 /* ═══════ إعدادات المحل — لازم تطابق src/types.ts في التطبيق ═══════ */
 const CONFIG = {
   shopWhatsApp: '201500184997',   // رقم واتساب المحل بصيغة دولية من غير +
-  instapay: 'luxurycare@instapay',
-  wallet: '01000000000',
-  shopAddress: 'عنوان المحل — يتحدد',
+  instapay: '',
+  wallet: '',
+  shopAddress: '',
   homeFee: 50,
   openHour: 9, closeHour: 21, daysAhead: 14,
   areas: [
@@ -385,7 +381,7 @@ $('#svcGrid').innerHTML = CONFIG.services.map((s) => `
     <ul>${s.items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>
   </div>`).join('');
 $('#homeFeeTxt').textContent = `(إضافة ${money(CONFIG.homeFee)})`;
-$('#shopAddrTxt').textContent = `العنوان: ${CONFIG.shopAddress}`;
+$('#shopAddrTxt').textContent = CONFIG.shopAddress ? `العنوان: ${CONFIG.shopAddress}` : 'العنوان بيوصلك على واتساب مع تأكيد الحجز.';
 
 /* ═══════ فورم الحجز ═══════ */
 const opt = (name, id, value, title, sub, checked) =>
@@ -399,7 +395,7 @@ $('#carMake').addEventListener('change', () => {
   $('#modelList').innerHTML = (MAKES[$('#carMake').value] || []).map((m) => `<option value="${esc(m)}">`).join('');
   $('#carModel').value = '';
 });
-$('#shopFields').textContent = 'عنوان المحل: ' + CONFIG.shopAddress + ' — تعالى قبل ميعادك بـ ٥ دقايق.';
+$('#shopFields').textContent = (CONFIG.shopAddress ? 'عنوان المحل: ' + CONFIG.shopAddress : 'عنوان المحل هيوصلك على واتساب مع تأكيد الحجز') + ' — تعالى قبل ميعادك بـ ٥ دقايق.';
 
 function buildDays() {
   const out = []; const now = new Date();
@@ -429,8 +425,7 @@ function refresh() {
   $('#homeFields').classList.toggle('hidden', mode !== 'home');
   $('#shopFields').classList.toggle('hidden', mode !== 'shop');
   const pay = val('pay'), pn = $('#payNote');
-  if (pay === 'instapay') { pn.textContent = `حوّل على إنستاباي: ${CONFIG.instapay} وابعت صورة التحويل على واتساب بعد الحجز.`; pn.classList.remove('hidden'); }
-  else if (pay === 'wallet') { pn.textContent = `حوّل على المحفظة: ${CONFIG.wallet} وابعت صورة التحويل على واتساب بعد الحجز.`; pn.classList.remove('hidden'); }
+  if (pay === 'instapay' || pay === 'wallet') { pn.textContent = `بيانات التحويل (${PAY[pay]}) هتوصلك على واتساب مع تأكيد الحجز.`; pn.classList.remove('hidden'); }
   else pn.classList.add('hidden');
   const p = calc();
   $('#s-svc').textContent = s ? s.name : '—';
@@ -489,8 +484,8 @@ $('#bookForm').addEventListener('submit', async (e) => {
     name, phone,
     car_make: $('#carMake').value,
     car_model: $('#carModel').value.trim(),
-    car_year: $('#carYear').value.trim() || null,
-    plate: $('#plate').value.trim() || null,
+    car_year: null,
+    plate: null,
     car_size: val('car'),
     services: [val('svc')],
     notes: $('#notes').value.trim() || null,
