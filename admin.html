@@ -345,6 +345,14 @@ function render() {
   }).join('');
 }
 
+function showNote(text, isErr = false) {
+  const box = document.createElement('div');
+  box.className = 'msg show' + (isErr ? ' err' : '');
+  box.textContent = text;
+  $('list').prepend(box);
+  setTimeout(() => box.remove(), 5000);
+}
+
 // ── actions ─────────────────────────────────────────────────
 $('list').addEventListener('click', async (e) => {
   const btn = e.target.closest('button[data-act]');
@@ -353,18 +361,34 @@ $('list').addEventListener('click', async (e) => {
   const act = btn.dataset.act;
 
   if (act === 'delete') {
-    if (!confirm('حذف الحجز نهائيًا؟')) return;
+    // ضغطة أولى: تأكيد داخل الصفحة (بدل confirm اللي بعض المتصفحات بتمنعه)
+    if (btn.dataset.armed !== '1') {
+      btn.dataset.armed = '1';
+      btn.textContent = 'متأكد؟ دوس تاني للحذف';
+      setTimeout(() => {
+        if (btn.isConnected) { btn.dataset.armed = ''; btn.textContent = 'حذف'; }
+      }, 4000);
+      return;
+    }
+    btn.disabled = true;
+    btn.textContent = 'جارٍ الحذف…';
     const { error } = await supabase.from('bookings').delete().eq('id', id);
-    if (error) return alert('تعذر الحذف: ' + error.message);
+    if (error) {
+      btn.disabled = false;
+      btn.dataset.armed = '';
+      btn.textContent = 'حذف';
+      return showNote('تعذر الحذف: ' + error.message, true);
+    }
     bookings = bookings.filter(b => b.id !== id);
     render();
+    showNote('اتمسح الحجز ' + id);
     return;
   }
 
   btn.disabled = true;
   const { error } = await supabase.from('bookings').update({ status: act }).eq('id', id);
   btn.disabled = false;
-  if (error) return alert('تعذر التحديث: ' + error.message);
+  if (error) return showNote('تعذر التحديث: ' + error.message, true);
 
   const row = bookings.find(b => b.id === id);
   if (row) row.status = act;
