@@ -73,6 +73,10 @@ section.block{padding:32px 0}
 .mode{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
 .mode h3{font-size:19px;margin-bottom:6px}
 .mode p{margin:0;color:var(--muted)}
+.app-band{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;background:linear-gradient(135deg,var(--panel-2),var(--panel));border:1px solid var(--gold);border-radius:18px;padding:24px 26px}
+.app-band h2{font-size:24px;margin-bottom:6px}
+.app-band p{margin:0;color:var(--muted);max-width:52ch}
+nav a.nav-app{color:var(--gold);border:1px solid rgba(217,179,108,.45)}
 .pay-row{display:flex;gap:10px;flex-wrap:wrap}
 .chip{border:1px solid var(--line);background:var(--panel);padding:8px 14px;border-radius:999px;font-size:15px}
 
@@ -132,8 +136,10 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px;paddin
 }
 @media (max-width:520px){
   .modes,.two{grid-template-columns:1fr}
-  .bar{height:auto;padding:10px 0;flex-wrap:wrap}
+  .bar{height:auto;padding:10px 16px;flex-wrap:wrap}
   nav a{padding:6px 10px}
+  nav a[data-nav=home]{display:none}
+  .brand b{font-size:19px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
@@ -148,6 +154,7 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px;paddin
     <nav>
       <a href="#home" data-nav="home">الرئيسية</a>
       <a href="#book" data-nav="book">احجز</a>
+      <a href="/app" class="nav-app">التطبيق</a>
     </nav>
   </div>
 </header>
@@ -162,6 +169,7 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px;paddin
         <div class="actions">
           <a class="cta" href="#book">احجز ميعادك</a>
           <a class="cta ghost" href="#home-services">الأسعار</a>
+          <a class="cta ghost" href="/app">نزّل التطبيق</a>
         </div>
       </div>
       <div class="hero-card">
@@ -180,6 +188,16 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px;paddin
       <div class="modes">
         <div class="mode"><h3>عندك في المكان</h3><p>اكتب عنوانك وابعت اللوكيشن، والفريق يوصلك في الميعاد بكل المعدات. <span id="homeFeeTxt"></span></p></div>
         <div class="mode"><h3>في المحل</h3><p>احجز ميعادك وتعالى على طول من غير انتظار. <span id="shopAddrTxt"></span></p></div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="app-band">
+        <div class="app-band-text">
+          <h2>احجز أسرع من التطبيق</h2>
+          <p>نزّل تطبيق LuxuryCare على موبايلك الأندرويد واحجز غسلتك في أقل من دقيقة. تطبيق الآيفون جاي قريب.</p>
+        </div>
+        <a class="cta" href="/app">تحميل التطبيق</a>
       </div>
     </section>
 
@@ -291,6 +309,7 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px;paddin
       <div class="actions">
         <a class="cta" id="doneWa" target="_blank" rel="noopener">ابعت الحجز على واتساب</a>
         <button class="cta ghost" type="button" id="againBtn">حجز تاني</button>
+        <a class="cta ghost" href="/app">نزّل التطبيق</a>
       </div>
       <p class="hint" style="margin:0;color:var(--muted);font-size:13px">رقم واتساب المحل: <span id="doneShopNum" dir="ltr"></span></p>
     </div>
