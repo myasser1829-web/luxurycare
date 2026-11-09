@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0B0D10" />
+<meta name="robots" content="noindex, nofollow" />
+<title>LuxuryCare — لوحة التحكم</title>
+<style>
+  :root {
+    --bg:#0B0D10; --surface:#14171C; --surface-alt:#1B1F26;
+    --border:#262C34; --border-soft:#1E242B;
+    --text:#F4F1EA; --muted:#98A1AC; --faint:#5C6570;
+    --gold:#D9B36C; --gold-soft:rgba(217,179,108,0.12); --gold-line:rgba(217,179,108,0.35);
+    --green:#7BC99A; --green-soft:rgba(123,201,154,0.12);
+    --red:#E5847A; --red-soft:rgba(229,132,122,0.12);
+    --blue:#8FB6E8; --blue-soft:rgba(143,182,232,0.12);
+    --r-sm:10px; --r-md:14px;
+    --font-serif:"Playfair Display","Times New Roman",serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg);color:var(--text);
+    font-family:"Segoe UI",Tahoma,system-ui,sans-serif;
+    font-size:14.5px;line-height:1.6;min-height:100dvh;
+    background-image:radial-gradient(900px 400px at 50% -10%,rgba(217,179,108,0.05),transparent 70%);
+    background-repeat:no-repeat;
+  }
+  .wrap{max-width:900px;margin:0 auto;padding:28px 16px 60px}
+  .brand{text-align:center;margin-bottom:26px}
+  .brand h1{font-family:var(--font-serif);font-size:21px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;padding-left:.2em}
+  .brand p{color:var(--gold);font-size:11.5px;margin-top:5px}
+
+  .card{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--r-md);padding:18px}
+
+  /* login */
+  #login-wrap{max-width:360px;margin:60px auto 0}
+  #login-wrap h2{font-size:16px;font-weight:600;margin-bottom:18px;text-align:center}
+  .f{margin-bottom:14px}
+  .f label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+  input{width:100%;font-family:inherit;font-size:15px;color:var(--text);background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px 13px;outline:none;transition:border-color .14s,box-shadow .14s}
+  input:focus{border-color:var(--gold-line);box-shadow:0 0 0 3px rgba(217,179,108,.1)}
+  .btn{font-family:inherit;font-size:14px;font-weight:600;padding:11px 20px;border-radius:var(--r-sm);border:none;background:linear-gradient(180deg,#E6C689,#C9A35C);color:#17130A;cursor:pointer;transition:filter .14s}
+  .btn:hover{filter:brightness(1.06)}
+  .btn:disabled{filter:grayscale(.4) brightness(.7);cursor:default}
+  .btn.full{width:100%}
+  .msg{font-size:12.5px;margin-top:12px;text-align:center;display:none}
+  .msg.show{display:block}
+  .msg a{color:var(--gold,#D9B36C)}
+  #list > .msg{margin:0 0 12px}
+  .msg.err{color:var(--red)}
+  .msg.ok{color:var(--green)}
+
+  /* header bar */
+  #app{display:none}
+  .topbar{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+  .stat{flex:1;min-width:110px;background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--r-sm);padding:11px 14px}
+  .stat .n{font-size:20px;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums}
+  .stat .l{font-size:10.5px;color:var(--faint);margin-top:1px}
+  .tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .tools button{font-family:inherit;font-size:12.5px;padding:7px 14px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .14s}
+  .tools button:hover{border-color:var(--gold-line);color:var(--text)}
+  .tools button.on{background:var(--gold-soft);border-color:var(--gold-line);color:var(--gold);font-weight:600}
+
+  /* booking card */
+  .b{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--r-md);padding:16px;margin-bottom:12px}
+  .b-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+  .b-name{font-size:15.5px;font-weight:700}
+  .b-phone{font-size:12.5px;color:var(--muted);margin-top:1px}
+  .badge{font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:999px;white-space:nowrap}
+  .badge.new{background:var(--blue-soft);color:var(--blue)}
+  .badge.confirmed{background:var(--gold-soft);color:var(--gold)}
+  .badge.done{background:var(--green-soft);color:var(--green)}
+  .badge.cancelled{background:var(--red-soft);color:var(--red)}
+  .b-car{font-size:13.5px;margin-top:8px}
+  .b-row{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.7}
+  .b-row b{color:var(--text);font-weight:600}
+  .pills{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+  .pill{font-size:11px;background:var(--gold-soft);color:var(--gold);border-radius:7px;padding:2px 8px;font-weight:600}
+  .b-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px;padding-top:12px;border-top:1px solid var(--border-soft);flex-wrap:wrap}
+  .b-total{font-size:14px;font-weight:700;color:var(--gold)}
+  .acts{display:flex;gap:6px;flex-wrap:wrap}
+  .acts a,.acts button{font-family:inherit;font-size:11.5px;font-weight:600;padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface-alt);color:var(--muted);cursor:pointer;text-decoration:none;transition:all .14s}
+  .acts a:hover,.acts button:hover{border-color:var(--gold-line);color:var(--gold)}
+  .acts .del:hover{border-color:var(--red);color:var(--red)}
+  .empty{text-align:center;color:var(--faint);padding:50px 20px;font-size:13.5px}
+  .note{font-size:11px;color:var(--faint);margin-top:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <h1>LuxuryCare</h1>
+    <p>لوحة التحكم — الحجوزات</p>
+  </div>
+
+  <!-- ── login ── -->
+  <div id="login-wrap" class="card">
+    <h2>تسجيل دخول المشرف</h2>
+    <form id="login-form">
+      <div class="f">
+        <label for="email">البريد الإلكتروني</label>
+        <input id="email" type="email" autocomplete="username" required />
+      </div>
+      <div class="f">
+        <label for="password">كلمة السر</label>
+        <input id="password" type="password" autocomplete="current-password" required />
+      </div>
+      <button class="btn full" id="login-btn" type="submit">دخول</button>
+      <div class="msg" id="login-msg"></div>
+    </form>
+    <p class="note" style="text-align:center">الحساب بتعمله من Supabase → Authentication → Users</p>
+  </div>
+
+  <!-- ── dashboard ── -->
+  <div id="app">
+    <div class="topbar">
+      <div class="stat"><div class="n" id="s-new">0</div><div class="l">جديد</div></div>
+      <div class="stat"><div class="n" id="s-confirmed">0</div><div class="l">مؤكد</div></div>
+      <div class="stat"><div class="n" id="s-done">0</div><div class="l">اتنفذ</div></div>
+      <div class="stat"><div class="n" id="s-today">0</div><div class="l">مواعيد النهارده</div></div>
+      <div class="stat"><div class="n" id="s-revenue">0</div><div class="l">إيراد المنفّذ</div></div>
+      <button class="btn" id="logout-btn" type="button">خروج</button>
+    </div>
+
+    <div class="tools" id="filters">
+      <button data-f="all" class="on">الكل</button>
+      <button data-f="new">جديد</button>
+      <button data-f="confirmed">مؤكد</button>
+      <button data-f="done">اتنفذ</button>
+      <button data-f="cancelled">ملغي</button>
+      <button data-f="today">مواعيد النهارده</button>
+      <button data-f="home">عند العميل</button>
+      <button data-f="shop">في المحل</button>
+      <button data-f="app">من التطبيق</button>
+      <button data-f="website">من الموقع</button>
+      <button id="refresh-btn" type="button" style="margin-inline-start:auto">تحديث</button>
+    </div>
+
+    <div id="list"></div>
+  </div>
+</div>
+
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+// ════════ ✱ حط بيانات Supabase هنا ✱ ════════
+const SUPABASE_URL      = 'https://qhzqjnnlgbuwmxfaubks.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_yKVehRAPNVtbczawenVRaw_MXxSG-5L';
+// ═════════════════════════════════════════════
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const $ = (id) => document.getElementById(id);
+
+const SERVICE_LABEL = { exterior:'غسيل خارجي', interior:'غسيل داخلي', full:'غسيل كامل' };
+const STATUS_LABEL  = { new:'جديد', confirmed:'مؤكد', done:'اتنفذ', cancelled:'ملغي' };
+const AREA_LABEL    = { mokattam:'المقطم', tagamoa:'التجمع الخامس', maadi:'المعادي' };
+const CAR_LABEL     = { sedan:'سيدان', hatch:'هاتشباك', suv:'SUV / جيب', van:'فان' };
+const PAY_LABEL     = { cash:'كاش', instapay:'إنستاباي', wallet:'محفظة' };
+
+const pad = (n) => String(n).padStart(2, '0');
+const ymd = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const fmtDay = (s) => {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(s ?? '')) return s || '—';
+  const [y, m, d] = s.split('-').map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString('ar-EG', { weekday:'long', day:'numeric', month:'long' });
+};
+const fmtHour = (slot) => {
+  const h = parseInt(slot, 10);
+  if (Number.isNaN(h)) return slot || '—';
+  return `${(h % 12 || 12).toLocaleString('ar-EG')}:٠٠ ${h < 12 ? 'ص' : 'م'}`;
+};
+const intlPhone = (p) => {
+  const d = String(p ?? '').replace(/\D/g, '');
+  return d.startsWith('20') ? d : d.startsWith('0') ? '2' + d : d;
+};
+const waConfirm = (b) => `https://wa.me/${intlPhone(b.phone)}?text=` + encodeURIComponent(
+  `أهلًا ${b.name}، معاك LuxuryCare. حجزك رقم ${b.id} يوم ${fmtDay(b.preferred_day)} الساعة ${fmtHour(b.preferred_slot)} اتأكد. شكرًا لثقتك!`);
+
+let bookings = [];
+let filter = 'all';
+
+const money = (n) => (n ?? 0).toLocaleString('en-US') + ' ج.م';
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c =>
+  ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+
+// ── auth ────────────────────────────────────────────────────
+async function init() {
+  const { data } = await supabase.auth.getSession();
+  if (data.session) showApp(); else showLogin();
+}
+
+function showLogin() {
+  $('login-wrap').style.display = '';
+  $('app').style.display = 'none';
+}
+
+function showApp() {
+  $('login-wrap').style.display = 'none';
+  $('app').style.display = 'block';
+  load();
+}
+
+$('login-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = $('login-btn');
+  btn.disabled = true;
+  btn.textContent = 'جارٍ الدخول…';
+
+  const { error } = await supabase.auth.signInWithPassword({
+    email: $('email').value.trim(),
+    password: $('password').value,
+  });
+
+  btn.disabled = false;
+  btn.textContent = 'دخول';
+
+  if (error) {
+    const box = $('login-msg');
+    box.className = 'msg show err';
+    box.textContent = 'البريد أو كلمة السر غير صحيحة.';
+    return;
+  }
+  $('login-msg').className = 'msg';
+  showApp();
+});
+
+$('logout-btn').addEventListener('click', async () => {
+  await supabase.auth.signOut();
+  bookings = [];
+  showLogin();
+});
+
+// ── data ────────────────────────────────────────────────────
+async function load() {
+  $('list').innerHTML = '<div class="empty">جارٍ التحميل…</div>';
+  const { data, error } = await supabase
+    .from('bookings')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    $('list').innerHTML = `<div class="empty">تعذر تحميل الحجوزات.<br><span style="color:var(--red);font-size:11.5px">${esc(error.message)}</span></div>`;
+    return;
+  }
+  bookings = data ?? [];
+  render();
+}
+
+$('refresh-btn').addEventListener('click', load);
+
+$('filters').addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-f]');
+  if (!btn) return;
+  filter = btn.dataset.f;
+  document.querySelectorAll('#filters button[data-f]')
+    .forEach(b => b.classList.toggle('on', b === btn));
+  render();
+});
+
+// ── render ──────────────────────────────────────────────────
+function filtered() {
+  if (filter === 'all') return bookings;
+  if (filter === 'app' || filter === 'website') {
+    return bookings.filter(b => b.source === filter);
+  }
+  if (filter === 'home' || filter === 'shop') {
+    return bookings.filter(b => (b.service_mode ?? 'home') === filter);
+  }
+  if (filter === 'today') {
+    return bookings.filter(b => b.preferred_day === ymd(new Date()));
+  }
+  return bookings.filter(b => b.status === filter);
+}
+
+function render() {
+  // إحصاءات
+  const today = ymd(new Date());
+  $('s-new').textContent       = bookings.filter(b => b.status === 'new').length;
+  $('s-confirmed').textContent = bookings.filter(b => b.status === 'confirmed').length;
+  $('s-done').textContent      = bookings.filter(b => b.status === 'done').length;
+  $('s-today').textContent     = bookings.filter(b => b.preferred_day === today && b.status !== 'cancelled').length;
+  $('s-revenue').textContent   = money(
+    bookings.filter(b => b.status === 'done').reduce((s, b) => s + (b.estimated_total ?? 0), 0)
+  );
+
+  // الأقرب ميعادًا الأول
+  const list = filtered().slice().sort((a, b) =>
+    `${a.preferred_day ?? ''} ${a.preferred_slot ?? ''}`.localeCompare(`${b.preferred_day ?? ''} ${b.preferred_slot ?? ''}`));
+  if (list.length === 0) {
+    $('list').innerHTML = '<div class="empty">لا توجد حجوزات في هذا التصنيف.</div>';
+    return;
+  }
+
+  $('list').innerHTML = list.map(b => {
+    const car = [b.car_make, b.car_model, b.car_year].filter(Boolean).join(' ');
+    const phoneClean = String(b.phone ?? '').replace(/[^\d+]/g, '');
+    const mapUrl = b.coords
+      ? `https://www.google.com/maps/search/?api=1&query=${b.coords.latitude},${b.coords.longitude}`
+      : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${b.address ?? ''} ${AREA_LABEL[b.area] ?? ''} القاهرة`)}`;
+    const atHome = (b.service_mode ?? 'home') === 'home';
+    const services = (b.services ?? []).map(k =>
+      `<span class="pill">${esc(SERVICE_LABEL[k] ?? k)}</span>`).join('') +
+      `<span class="pill">${atHome ? 'عند العميل' : 'في المحل'}</span>`;
+
+    const next = {
+      new:       '<button data-act="confirmed" data-id="' + esc(b.id) + '">تأكيد</button>' +
+                 '<button data-act="cancelled" data-id="' + esc(b.id) + '">إلغاء</button>',
+      confirmed: '<button data-act="done" data-id="' + esc(b.id) + '">اتنفذ</button>' +
+                 '<button data-act="cancelled" data-id="' + esc(b.id) + '">إلغاء</button>',
+      done:      '',
+      cancelled: '<button data-act="new" data-id="' + esc(b.id) + '">إرجاع</button>',
+    }[b.status] ?? '';
+
+    return `
+      <div class="b">
+        <div class="b-head">
+          <div>
+            <div class="b-name">${esc(b.name)}</div>
+            <div class="b-phone">${esc(b.phone)} · ${b.source === 'app' ? 'تطبيق' : 'موقع'}</div>
+          </div>
+          <span class="badge ${esc(b.status)}">${esc(STATUS_LABEL[b.status] ?? b.status)}</span>
+        </div>
+
+        <div class="b-row" style="color:var(--gold);font-weight:700">${esc(fmtDay(b.preferred_day))} · ${esc(fmtHour(b.preferred_slot))}</div>
+        <div class="pills">${services}</div>
+        <div class="b-car"><b>${esc(car)}</b> (${esc(CAR_LABEL[b.car_size] ?? b.car_size ?? '')})${b.plate ? ' · ' + esc(b.plate) : ''}</div>
+
+        <div class="b-row"><b>المنطقة:</b> ${esc(AREA_LABEL[b.area] ?? b.area ?? '—')}${atHome && b.address ? ' — ' + esc(b.address) : ''}${b.coords ? ' · GPS' : ''}</div>
+        <div class="b-row"><b>الدفع:</b> ${esc(PAY_LABEL[b.payment_method] ?? '—')}</div>
+        ${b.notes ? `<div class="b-row"><b>ملاحظات:</b> ${esc(b.notes)}</div>` : ''}
+        <div class="b-row"><b>اتحجز:</b> ${new Date(b.created_at).toLocaleString('ar-EG')} · ${esc(b.id)}</div>
+
+        <div class="b-foot">
+          <span class="b-total">${money(b.estimated_total)}</span>
+          <div class="acts">
+            <a href="${esc(waConfirm(b))}" target="_blank" rel="noopener" style="color:var(--success,#7BC99A)">واتساب</a>
+            <a href="tel:${esc(phoneClean)}">اتصال</a>
+            ${atHome ? `<a href="${mapUrl}" target="_blank" rel="noopener">خريطة</a>` : ''}
+            ${next}
+            <button class="del" data-act="delete" data-id="${esc(b.id)}">حذف</button>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ── actions ─────────────────────────────────────────────────
+$('list').addEventListener('click', async (e) => {
+  const btn = e.target.closest('button[data-act]');
+  if (!btn) return;
+  const id  = btn.dataset.id;
+  const act = btn.dataset.act;
+
+  if (act === 'delete') {
+    if (!confirm('حذف الحجز نهائيًا؟')) return;
+    const { error } = await supabase.from('bookings').delete().eq('id', id);
+    if (error) return alert('تعذر الحذف: ' + error.message);
+    bookings = bookings.filter(b => b.id !== id);
+    render();
+    return;
+  }
+
+  btn.disabled = true;
+  const { error } = await supabase.from('bookings').update({ status: act }).eq('id', id);
+  btn.disabled = false;
+  if (error) return alert('تعذر التحديث: ' + error.message);
+
+  const row = bookings.find(b => b.id === id);
+  if (row) row.status = act;
+  render();
+  if (act === 'confirmed' && row) {
+    const box = document.createElement('div');
+    box.className = 'msg show';
+    box.innerHTML = `اتأكد حجز ${esc(row.name)}. <a href="${esc(waConfirm(row))}" target="_blank" rel="noopener">ابعتله تأكيد على واتساب</a>`;
+    $('list').prepend(box);
+  }
+});
+
+init();
+</script>
+</body>
+</html>
