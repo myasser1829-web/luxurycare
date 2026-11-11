@@ -2,6 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
+<script>try{var q=new URLSearchParams(location.search).get('lang');var L=q||localStorage.getItem('lc_lang');if(L==='en'){document.documentElement.lang='en';document.documentElement.dir='ltr';}}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0B0D10">
 <title>LuxuryCare | غسيل عربيات في المقطم والتجمع والمعادي</title>
@@ -99,6 +100,9 @@ section.block{padding:32px 0}
 .app-band h2{font-size:24px;margin-bottom:6px}
 .app-band p{margin:0;color:var(--muted);max-width:52ch}
 nav a.nav-app{color:var(--gold);border:1px solid rgba(217,179,108,.45)}
+.lang-btn{font:inherit;font-size:14px;font-weight:700;padding:7px 13px;border-radius:999px;background:var(--gold);color:#1a1408;border:0;cursor:pointer;margin-inline-start:4px}
+.lang-btn:hover{background:var(--gold-deep)}
+[dir=ltr] .done .code{text-align:left}
 .pay-row{display:flex;gap:10px;flex-wrap:wrap}
 .chip{border:1px solid var(--line);background:var(--panel);padding:8px 14px;border-radius:999px;font-size:15px}
 
@@ -136,7 +140,7 @@ aside.sum{position:sticky;top:84px;background:var(--panel);border:1px solid var(
 aside.sum h3{font-size:19px}
 .row{display:flex;justify-content:space-between;gap:12px;font-size:15px}
 .row span:first-child{color:var(--muted)}
-.row span:last-child{text-align:left;font-variant-numeric:tabular-nums}
+.row span:last-child{text-align:end;font-variant-numeric:tabular-nums}
 .total{border-top:1px solid var(--line);padding-top:10px;font-size:20px;font-weight:700}
 .total span:last-child{color:var(--gold)}
 
@@ -177,9 +181,10 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px;paddin
       <b>Luxury<span>Care</span></b>
     </a>
     <nav>
-      <a href="#home" data-nav="home">الرئيسية</a>
-      <a href="#book" data-nav="book">احجز</a>
-      <a href="/app" class="nav-app">التطبيق</a>
+      <a href="#home" data-nav="home" data-i18n="navHome">الرئيسية</a>
+      <a href="#book" data-nav="book" data-i18n="navBook">احجز</a>
+      <a href="/app" class="nav-app" data-i18n="navApp">التطبيق</a>
+      <button type="button" class="lang-btn" id="langBtn" lang="en" aria-label="Switch to English">EN</button>
     </nav>
   </div>
 </header>
@@ -189,46 +194,46 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px;paddin
   <div id="v-home">
     <div class="hero">
       <div>
-        <h1>عربيتك تلمع <em>من غير ما تتحرك</em> من مكانك</h1>
-        <p>غسيل عربيات احترافي في القاهرة. نيجيلك البيت أو الشغل في المقطم والتجمع والمعادي، أو تحجز ميعاد وتعدّي علينا في المحل.</p>
+        <h1 data-i18n="heroH">عربيتك تلمع <em>من غير ما تتحرك</em> من مكانك</h1>
+        <p data-i18n="heroP">غسيل عربيات احترافي في القاهرة. نيجيلك البيت أو الشغل في المقطم والتجمع والمعادي، أو تحجز ميعاد وتعدّي علينا في المحل.</p>
         <div class="actions">
-          <a class="cta" href="#book">احجز ميعادك</a>
-          <a class="cta ghost" href="#home-services">الأسعار</a>
-          <a class="cta ghost" href="/app">نزّل التطبيق</a>
+          <a class="cta" href="#book" data-i18n="ctaBook">احجز ميعادك</a>
+          <a class="cta ghost" href="#home-services" data-i18n="ctaPrices">الأسعار</a>
+          <a class="cta ghost" href="/app" data-i18n="getApp">نزّل التطبيق</a>
         </div>
       </div>
       <div class="hero-card">
-        <h3>مناطق الخدمة</h3>
+        <h3 data-i18n="areasH">مناطق الخدمة</h3>
         <div id="areasList"></div>
       </div>
     </div>
 
     <section class="block" id="home-services">
-      <div class="sec-h"><h2>أنواع الغسيل</h2><p>الأسعار للعربية الملاكي، والـ SUV والفان ليهم إضافة بسيطة</p></div>
+      <div class="sec-h"><h2 data-i18n="svcH">أنواع الغسيل</h2><p data-i18n="svcP">الأسعار للعربية الملاكي، والـ SUV والفان ليهم إضافة بسيطة</p></div>
       <div class="svc-grid" id="svcGrid"></div>
     </section>
 
     <section class="block">
-      <div class="sec-h"><h2>نغسلها فين؟</h2></div>
+      <div class="sec-h"><h2 data-i18n="whereH">نغسلها فين؟</h2></div>
       <div class="modes">
-        <div class="mode"><h3>عندك في المكان</h3><p>اكتب عنوانك وابعت اللوكيشن، والفريق يوصلك في الميعاد بكل المعدات. <span id="homeFeeTxt"></span></p></div>
-        <div class="mode"><h3>في المحل</h3><p>احجز ميعادك وتعالى على طول من غير انتظار. <span id="shopAddrTxt"></span></p></div>
+        <div class="mode"><h3 data-i18n="modeHomeH">عندك في المكان</h3><p><span data-i18n="modeHomeP">اكتب عنوانك وابعت اللوكيشن، والفريق يوصلك في الميعاد بكل المعدات.</span> <span id="homeFeeTxt"></span></p></div>
+        <div class="mode"><h3 data-i18n="modeShopH">في المحل</h3><p><span data-i18n="modeShopP">احجز ميعادك وتعالى على طول من غير انتظار.</span> <span id="shopAddrTxt"></span></p></div>
       </div>
     </section>
 
     <section class="block">
       <div class="app-band">
         <div class="app-band-text">
-          <h2>احجز أسرع من التطبيق</h2>
-          <p>نزّل تطبيق LuxuryCare على موبايلك الأندرويد واحجز غسلتك في أقل من دقيقة. وعلى الآيفون تقدر تضيفه للشاشة الرئيسية من Safari.</p>
+          <h2 data-i18n="appH">احجز أسرع من التطبيق</h2>
+          <p data-i18n="appP">نزّل تطبيق LuxuryCare على موبايلك الأندرويد واحجز غسلتك في أقل من دقيقة. وعلى الآيفون تقدر تضيفه للشاشة الرئيسية من Safari.</p>
         </div>
-        <a class="cta" href="/app">تحميل التطبيق</a>
+        <a class="cta" href="/app" data-i18n="appBtn">تحميل التطبيق</a>
       </div>
     </section>
 
     <section class="block">
-      <div class="sec-h"><h2>طرق الدفع</h2></div>
-      <div class="pay-row"><span class="chip">كاش عند الخدمة</span><span class="chip">إنستاباي</span><span class="chip">محفظة إلكترونية (فودافون كاش وغيرها)</span></div>
+      <div class="sec-h"><h2 data-i18n="payH">طرق الدفع</h2></div>
+      <div class="pay-row"><span class="chip" data-i18n="chipCash">كاش عند الخدمة</span><span class="chip" data-i18n="chipInsta">إنستاباي</span><span class="chip" data-i18n="chipWallet">محفظة إلكترونية (فودافون كاش وغيرها)</span></div>
     </section>
   </div>
 
@@ -237,88 +242,88 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px;paddin
     <div class="book">
       <form id="bookForm" novalidate>
         <fieldset>
-          <legend><span class="n">1</span>نوع الغسيل</legend>
+          <legend><span class="n">1</span><span data-i18n="lg1">نوع الغسيل</span></legend>
           <div class="opts" id="svcOpts"></div>
         </fieldset>
 
         <fieldset>
-          <legend><span class="n">2</span>نوع العربية</legend>
+          <legend><span class="n">2</span><span data-i18n="lg2">نوع العربية</span></legend>
           <div class="opts" id="carOpts"></div>
           <div class="two">
             <div class="field">
-              <label for="carMake">الماركة</label>
-              <select id="carMake"><option value="">اختار الماركة</option></select>
+              <label for="carMake" data-i18n="lMake">الماركة</label>
+              <select id="carMake"><option value="" data-i18n="oMake">اختار الماركة</option></select>
             </div>
             <div class="field">
-              <label for="carModel">الموديل</label>
-              <input type="text" id="carModel" list="modelList" placeholder="مثلًا: إلنترا">
+              <label for="carModel" data-i18n="lModel">الموديل</label>
+              <input type="text" id="carModel" list="modelList" placeholder="مثلًا: إلنترا" data-i18n-ph="phModel">
               <datalist id="modelList"></datalist>
             </div>
           </div>
         </fieldset>
 
         <fieldset>
-          <legend><span class="n">3</span>المكان</legend>
+          <legend><span class="n">3</span><span data-i18n="lg3">المكان</span></legend>
           <div class="opts">
-            <div class="opt"><input type="radio" name="mode" id="m-home" value="home" checked><label for="m-home"><b>نيجيلك</b><small>في البيت أو الشغل</small></label></div>
-            <div class="opt"><input type="radio" name="mode" id="m-shop" value="shop"><label for="m-shop"><b>تيجي المحل</b><small>تحجز ميعاد وتعدّي</small></label></div>
+            <div class="opt"><input type="radio" name="mode" id="m-home" value="home" checked><label for="m-home"><b data-i18n="mHome">نيجيلك</b><small data-i18n="mHomeS">في البيت أو الشغل</small></label></div>
+            <div class="opt"><input type="radio" name="mode" id="m-shop" value="shop"><label for="m-shop"><b data-i18n="mShop">تيجي المحل</b><small data-i18n="mShopS">تحجز ميعاد وتعدّي</small></label></div>
           </div>
           <div class="field">
-            <label for="area">المنطقة</label>
-            <select id="area"><option value="">اختار المنطقة</option></select>
+            <label for="area" data-i18n="lArea">المنطقة</label>
+            <select id="area"><option value="" data-i18n="oArea">اختار المنطقة</option></select>
           </div>
           <div id="homeFields" class="field" style="gap:14px">
             <div class="field">
-              <label for="address">العنوان بالتفصيل</label>
-              <textarea id="address" placeholder="الحي / الشارع / رقم العمارة / الدور / علامة مميزة"></textarea>
+              <label for="address" data-i18n="lAddr">العنوان بالتفصيل</label>
+              <textarea id="address" data-i18n-ph="phAddr" placeholder="الحي / الشارع / رقم العمارة / الدور / علامة مميزة"></textarea>
             </div>
             <div class="field">
-              <button class="cta ghost" type="button" id="gpsBtn">حدد موقعي الحالي</button>
-              <span class="hint" id="gpsMsg">بيبعتلنا مكانك بالظبط على الخريطة. اختياري لو العنوان واضح.</span>
+              <button class="cta ghost" type="button" id="gpsBtn" data-i18n="gpsBtn">حدد موقعي الحالي</button>
+              <span class="hint" id="gpsMsg" data-i18n="gpsHint">بيبعتلنا مكانك بالظبط على الخريطة. اختياري لو العنوان واضح.</span>
             </div>
           </div>
           <div id="shopFields" class="note hidden"></div>
         </fieldset>
 
         <fieldset>
-          <legend><span class="n">4</span>الميعاد</legend>
+          <legend><span class="n">4</span><span data-i18n="lg4">الميعاد</span></legend>
           <div class="days" id="dayOpts"></div>
           <div class="times" id="timeOpts"></div>
         </fieldset>
 
         <fieldset>
-          <legend><span class="n">5</span>بياناتك</legend>
+          <legend><span class="n">5</span><span data-i18n="lg5">بياناتك</span></legend>
           <div class="two">
-            <div class="field"><label for="name">الاسم</label><input type="text" id="name" autocomplete="name"></div>
-            <div class="field"><label for="phone">رقم الموبايل (واتساب)</label><input type="tel" id="phone" dir="ltr" placeholder="01xxxxxxxxx" autocomplete="tel"></div>
+            <div class="field"><label for="name" data-i18n="lName">الاسم</label><input type="text" id="name" autocomplete="name"></div>
+            <div class="field"><label for="phone" data-i18n="lPhone">رقم الموبايل (واتساب)</label><input type="tel" id="phone" dir="ltr" placeholder="01xxxxxxxxx" autocomplete="tel"></div>
           </div>
-          <div class="field"><label for="notes">ملاحظات</label><textarea id="notes" placeholder="أي حاجة عايزنا نعرفها"></textarea></div>
+          <div class="field"><label for="notes" data-i18n="lNotes">ملاحظات</label><textarea id="notes" placeholder="أي حاجة عايزنا نعرفها" data-i18n-ph="phNotes"></textarea></div>
         </fieldset>
 
         <fieldset>
-          <legend><span class="n">6</span>طريقة الدفع</legend>
+          <legend><span class="n">6</span><span data-i18n="lg6">طريقة الدفع</span></legend>
           <div class="opts">
-            <div class="opt"><input type="radio" name="pay" id="p-cash" value="cash" checked><label for="p-cash"><b>كاش</b><small>عند الخدمة</small></label></div>
-            <div class="opt"><input type="radio" name="pay" id="p-insta" value="instapay"><label for="p-insta"><b>إنستاباي</b><small>تحويل</small></label></div>
-            <div class="opt"><input type="radio" name="pay" id="p-wallet" value="wallet"><label for="p-wallet"><b>محفظة</b><small>فودافون كاش وغيرها</small></label></div>
+            <div class="opt"><input type="radio" name="pay" id="p-cash" value="cash" checked><label for="p-cash"><b data-i18n="pCash">كاش</b><small data-i18n="pCashS">عند الخدمة</small></label></div>
+            <div class="opt"><input type="radio" name="pay" id="p-insta" value="instapay"><label for="p-insta"><b data-i18n="pInsta">إنستاباي</b><small data-i18n="pInstaS">تحويل</small></label></div>
+            <div class="opt"><input type="radio" name="pay" id="p-wallet" value="wallet"><label for="p-wallet"><b data-i18n="pWallet">محفظة</b><small data-i18n="pWalletS">فودافون كاش وغيرها</small></label></div>
           </div>
           <div id="payNote" class="note hidden"></div>
         </fieldset>
 
         <div id="formErr" class="err" role="alert"></div>
-        <button class="cta" type="submit" id="submitBtn">تأكيد الحجز</button>
+        <button class="cta" type="submit" id="submitBtn" data-i18n="submit">تأكيد الحجز</button>
       </form>
 
       <aside class="sum" aria-live="polite">
-        <h3>ملخص الحجز</h3>
-        <div class="row"><span>الخدمة</span><span id="s-svc">—</span></div>
-        <div class="row"><span>العربية</span><span id="s-car">—</span></div>
-        <div class="row"><span>المكان</span><span id="s-mode">—</span></div>
-        <div class="row"><span>الميعاد</span><span id="s-when">—</span></div>
-        <div class="row"><span>سعر الغسيل</span><span id="s-base">—</span></div>
-        <div class="row"><span>إضافة حجم العربية</span><span id="s-car-fee">—</span></div>
-        <div class="row"><span>خدمة في المكان</span><span id="s-home-fee">—</span></div>
-        <div class="row total"><span>الإجمالي</span><span id="s-total">—</span></div>
+        <h3 data-i18n="sumH">ملخص الحجز</h3>
+        <div class="row"><span data-i18n="sSvc">الخدمة</span><span id="s-svc">—</span></div>
+        <div class="row"><span data-i18n="sCar">العربية</span><span id="s-car">—</span></div>
+        <div class="row"><span data-i18n="sMode">المكان</span><span id="s-mode">—</span></div>
+        <div class="row"><span data-i18n="sWhen">الميعاد</span><span id="s-when">—</span></div>
+        <div class="row"><span data-i18n="sBase">سعر الغسيل</span><span id="s-base">—</span></div>
+        <div class="row"><span data-i18n="sCarFee">إضافة حجم العربية</span><span id="s-car-fee">—</span></div>
+        <div class="row"><span data-i18n="sHomeFee">خدمة في المكان</span><span id="s-home-fee">—</span></div>
+        <div class="row total"><span data-i18n="sTotal">الإجمالي</span><span id="s-total">—</span></div>
       </aside>
     </div>
   </div>
@@ -326,22 +331,22 @@ footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px;paddin
   <!-- DONE -->
   <div id="v-done" class="hidden">
     <div class="done">
-      <h2>تم استلام حجزك</h2>
-      <p style="margin:0;color:var(--muted)">رقم الحجز</p>
+      <h2 data-i18n="doneH">تم استلام حجزك</h2>
+      <p style="margin:0;color:var(--muted)" data-i18n="doneNo">رقم الحجز</p>
       <div class="code" id="doneCode"></div>
       <div id="doneSummary" class="meta"></div>
-      <p style="margin:0">هنكلمك على واتساب لتأكيد الميعاد. لو حابب تسرّع التأكيد ابعتلنا الحجز دلوقتي:</p>
+      <p style="margin:0" data-i18n="doneP">هنكلمك على واتساب لتأكيد الميعاد. لو حابب تسرّع التأكيد ابعتلنا الحجز دلوقتي:</p>
       <div class="actions">
-        <a class="cta" id="doneWa" target="_blank" rel="noopener">ابعت الحجز على واتساب</a>
-        <button class="cta ghost" type="button" id="againBtn">حجز تاني</button>
-        <a class="cta ghost" href="/app">نزّل التطبيق</a>
+        <a class="cta" id="doneWa" target="_blank" rel="noopener" data-i18n="doneWa">ابعت الحجز على واتساب</a>
+        <button class="cta ghost" type="button" id="againBtn" data-i18n="again">حجز تاني</button>
+        <a class="cta ghost" href="/app" data-i18n="getApp">نزّل التطبيق</a>
       </div>
-      <p class="hint" style="margin:0;color:var(--muted);font-size:13px">رقم واتساب المحل: <span id="doneShopNum" dir="ltr"></span></p>
+      <p class="hint" style="margin:0;color:var(--muted);font-size:13px"><span data-i18n="shopNum">رقم واتساب المحل:</span> <span id="doneShopNum" dir="ltr"></span></p>
     </div>
   </div>
 </main>
 
-<footer><div class="wrap foot">LuxuryCare · غسيل عربيات · القاهرة: المقطم – التجمع – المعادي<span class="foot-links"><a href="/app">التطبيق</a> · <a href="/privacy">سياسة الخصوصية</a> · <a href="mailto:info@luxurycare-eg.com">info@luxurycare-eg.com</a> · <a href="https://wa.me/201500184997" dir="ltr">01500184997</a></span></div></footer>
+<footer><div class="wrap foot"><span data-i18n="footT">LuxuryCare · غسيل عربيات · القاهرة: المقطم – التجمع – المعادي</span><span class="foot-links"><a href="/app" data-i18n="navApp">التطبيق</a> · <a href="/privacy" data-i18n="privacy">سياسة الخصوصية</a> · <a href="mailto:info@luxurycare-eg.com">info@luxurycare-eg.com</a> · <a href="https://wa.me/201500184997" dir="ltr">01500184997</a></span></div></footer>
 
 <script type="module">
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
@@ -362,101 +367,173 @@ const CONFIG = {
   homeFee: 50,
   openHour: 9, closeHour: 21, daysAhead: 14,
   areas: [
-    { id: 'mokattam', name: 'المقطم' },
-    { id: 'tagamoa',  name: 'التجمع الخامس' },
-    { id: 'maadi',    name: 'المعادي' },
+    { id: 'mokattam', name: 'المقطم', en: 'Mokattam' },
+    { id: 'tagamoa',  name: 'التجمع الخامس', en: 'Fifth Settlement (New Cairo)' },
+    { id: 'maadi',    name: 'المعادي', en: 'Maadi' },
   ],
   services: [
-    { id: 'exterior', name: 'غسيل خارجي', price: 150, mins: 30, items: ['شامبو وفوم للبودي', 'الجنوط والكاوتش', 'تنشيف بفوط مايكروفايبر', 'تلميع الإزاز'] },
-    { id: 'interior', name: 'غسيل داخلي', price: 200, mins: 45, items: ['مكنسة للكراسي والدواسات', 'تنظيف التابلوه والأبواب', 'تنظيف الإزاز من جوه', 'معطر'] },
-    { id: 'full',     name: 'غسيل كامل',  price: 300, mins: 75, items: ['الخارجي + الداخلي', 'تلميع الكاوتش', 'تنظيف الشنطة', 'أفضل قيمة'] },
+    { id: 'exterior', name: 'غسيل خارجي', price: 150, mins: 30, items: ['شامبو وفوم للبودي', 'الجنوط والكاوتش', 'تنشيف بفوط مايكروفايبر', 'تلميع الإزاز'],
+      en: 'Exterior wash', itemsEn: ['Shampoo & foam body wash', 'Rims & tyres', 'Microfiber towel dry', 'Glass polish'] },
+    { id: 'interior', name: 'غسيل داخلي', price: 200, mins: 45, items: ['مكنسة للكراسي والدواسات', 'تنظيف التابلوه والأبواب', 'تنظيف الإزاز من جوه', 'معطر'],
+      en: 'Interior clean', itemsEn: ['Vacuum seats & mats', 'Dashboard & door panels', 'Inside glass cleaning', 'Air freshener'] },
+    { id: 'full',     name: 'غسيل كامل',  price: 300, mins: 75, items: ['الخارجي + الداخلي', 'تلميع الكاوتش', 'تنظيف الشنطة', 'أفضل قيمة'],
+      en: 'Full wash', itemsEn: ['Exterior + interior', 'Tyre shine', 'Trunk cleaning', 'Best value'] },
   ],
   cars: [
-    { id: 'sedan', name: 'سيدان', extra: 0 },
-    { id: 'hatch', name: 'هاتشباك', extra: 0 },
-    { id: 'suv',   name: 'SUV / جيب', extra: 50 },
-    { id: 'van',   name: 'فان / ميني باص', extra: 100 },
+    { id: 'sedan', name: 'سيدان', en: 'Sedan', extra: 0 },
+    { id: 'hatch', name: 'هاتشباك', en: 'Hatchback', extra: 0 },
+    { id: 'suv',   name: 'جيب / SUV', en: 'SUV / 4x4', extra: 50 },
+    { id: 'van',   name: 'فان / ميني باص', en: 'Van / Minibus', extra: 100 },
   ],
 };
 /* ════════════════════════════════════════════════════════════════ */
 
-const MAKES = {
-  'تويوتا':     ['كورولا','ياريس','كامري','راف 4','فورتشنر','هايلكس','لاند كروزر'],
-  'هيونداي':    ['إلنترا','أكسنت','توسان','سوناتا','كريتا','i10','i20'],
-  'نيسان':      ['صني','سنترا','قشقاي','إكس تريل','جوك','باترول'],
-  'كيا':        ['سيراتو','ريو','سبورتاج','سيلتوس','كارنفال','K5'],
-  'شيفروليه':   ['أوبترا','لانوس','كروز','كابتيفا','سبارك'],
-  'ميتسوبيشي':  ['لانسر','أتراج','إكليبس كروس','باجيرو'],
-  'سكودا':      ['أوكتافيا','فابيا','سوبيرب','كودياك'],
-  'رينو':       ['لوجان','سانديرو','داستر','ميجان','كابتور'],
-  'بيجو':       ['301','3008','2008','508'],
-  'فيات':       ['تيبو','باندا','بونتو'],
-  'سوزوكي':     ['سويفت','إرتيجا','فيتارا','سياز'],
-  'هوندا':      ['سيفيك','أكورد','CR-V','سيتي'],
-  'فولكس فاجن': ['جولف','بولو','تيجوان','باسات'],
-  'أوبل':       ['أسترا','كورسا','إنسيجنيا'],
-  'مرسيدس':     ['A-Class','C-Class','E-Class','S-Class','GLC','GLE'],
-  'BMW':        ['3 Series','5 Series','X1','X3','X5'],
-  'أودي':       ['A3','A4','Q3','Q5'],
-  'لاند روفر':  ['رينج روفر','إيفوك','ديسكفري'],
-  'جيب':        ['رانجلر','جراند شيروكي','كومباس'],
-};
+// [عربي, English, موديلات عربي, English models]
+const MAKES = [
+  ['تويوتا','Toyota',['كورولا','ياريس','كامري','راف 4','فورتشنر','هايلكس','لاند كروزر'],['Corolla','Yaris','Camry','RAV4','Fortuner','Hilux','Land Cruiser']],
+  ['هيونداي','Hyundai',['إلنترا','أكسنت','توسان','سوناتا','كريتا','i10','i20'],['Elantra','Accent','Tucson','Sonata','Creta','i10','i20']],
+  ['نيسان','Nissan',['صني','سنترا','قشقاي','إكس تريل','جوك','باترول'],['Sunny','Sentra','Qashqai','X-Trail','Juke','Patrol']],
+  ['كيا','Kia',['سيراتو','ريو','سبورتاج','سيلتوس','كارنفال','K5'],['Cerato','Rio','Sportage','Seltos','Carnival','K5']],
+  ['شيفروليه','Chevrolet',['أوبترا','لانوس','كروز','كابتيفا','سبارك'],['Optra','Lanos','Cruze','Captiva','Spark']],
+  ['ميتسوبيشي','Mitsubishi',['لانسر','أتراج','إكليبس كروس','باجيرو'],['Lancer','Attrage','Eclipse Cross','Pajero']],
+  ['سكودا','Skoda',['أوكتافيا','فابيا','سوبيرب','كودياك'],['Octavia','Fabia','Superb','Kodiaq']],
+  ['رينو','Renault',['لوجان','سانديرو','داستر','ميجان','كابتور'],['Logan','Sandero','Duster','Megane','Captur']],
+  ['بيجو','Peugeot',['301','3008','2008','508'],['301','3008','2008','508']],
+  ['فيات','Fiat',['تيبو','باندا','بونتو'],['Tipo','Panda','Punto']],
+  ['سوزوكي','Suzuki',['سويفت','إرتيجا','فيتارا','سياز'],['Swift','Ertiga','Vitara','Ciaz']],
+  ['هوندا','Honda',['سيفيك','أكورد','CR-V','سيتي'],['Civic','Accord','CR-V','City']],
+  ['فولكس فاجن','Volkswagen',['جولف','بولو','تيجوان','باسات'],['Golf','Polo','Tiguan','Passat']],
+  ['أوبل','Opel',['أسترا','كورسا','إنسيجنيا'],['Astra','Corsa','Insignia']],
+  ['مرسيدس','Mercedes',['A-Class','C-Class','E-Class','S-Class','GLC','GLE'],['A-Class','C-Class','E-Class','S-Class','GLC','GLE']],
+  ['BMW','BMW',['3 Series','5 Series','X1','X3','X5'],['3 Series','5 Series','X1','X3','X5']],
+  ['أودي','Audi',['A3','A4','Q3','Q5'],['A3','A4','Q3','Q5']],
+  ['لاند روفر','Land Rover',['رينج روفر','إيفوك','ديسكفري'],['Range Rover','Evoque','Discovery']],
+  ['جيب','Jeep',['رانجلر','جراند شيروكي','كومباس'],['Wrangler','Grand Cherokee','Compass']],
+];
 
-const PAY = { cash: 'كاش', instapay: 'إنستاباي', wallet: 'محفظة' };
+/* ═══════ اللغة: عربي / English ═══════ */
+const EN = {
+  navHome:'Home', navBook:'Book', navApp:'App', privacy:'Privacy policy', getApp:'Get the app',
+  heroH:'Your car shines <em>without you moving</em> an inch',
+  heroP:'Professional car wash in Cairo. We come to your home or office in Mokattam, New Cairo and Maadi, or book a slot and drop by our shop.',
+  ctaBook:'Book now', ctaPrices:'Prices', areasH:'Service areas',
+  svcH:'Wash packages', svcP:'Prices are for sedans; SUVs and vans have a small extra charge',
+  whereH:'Where do we wash it?', modeHomeH:'At your place', modeHomeP:'Send your address and location, and our team arrives on time with all the equipment.',
+  modeShopH:'At our shop', modeShopP:'Book a slot and come straight in, no waiting.',
+  appH:'Book faster with the app', appP:'Get the LuxuryCare app on your Android phone and book a wash in under a minute. On iPhone, add it to your Home Screen from Safari.', appBtn:'Download the app',
+  payH:'Payment methods', chipCash:'Cash on service', chipInsta:'InstaPay', chipWallet:'Mobile wallet (Vodafone Cash & others)',
+  lg1:'Wash type', lg2:'Car type', lg3:'Location', lg4:'Date & time', lg5:'Your details', lg6:'Payment method',
+  lMake:'Make', oMake:'Choose make', lModel:'Model', phModel:'e.g. Elantra',
+  mHome:'We come to you', mHomeS:'Home or office', mShop:'Visit the shop', mShopS:'Book a slot and drop by',
+  lArea:'Area', oArea:'Choose area', lAddr:'Full address', phAddr:'District / street / building no. / floor / landmark',
+  gpsBtn:'Use my current location', gpsHint:'Sends us your exact spot on the map. Optional if your address is clear.',
+  lName:'Name', lPhone:'Mobile number (WhatsApp)', lNotes:'Notes', phNotes:'Anything we should know',
+  pCash:'Cash', pCashS:'On service', pInsta:'InstaPay', pInstaS:'Transfer', pWallet:'Wallet', pWalletS:'Vodafone Cash & others',
+  submit:'Confirm booking', sumH:'Booking summary', sSvc:'Service', sCar:'Car', sMode:'Location', sWhen:'Date & time',
+  sBase:'Wash price', sCarFee:'Car size extra', sHomeFee:'On-site service', sTotal:'Total',
+  doneH:'Booking received', doneNo:'Booking number', doneP:'We’ll contact you on WhatsApp to confirm. To speed things up, send us your booking now:',
+  doneWa:'Send booking on WhatsApp', again:'Book again', shopNum:'Shop WhatsApp:',
+  footT:'LuxuryCare · Car wash · Cairo: Mokattam – New Cairo – Maadi',
+};
+// نصوص بتتولد بالكود
+const TXT = {
+  ar: { cur:'ج.م', mins:(n)=>`ج.م · حوالي ${n} دقيقة`, areaSub:'نيجيلك + المحل', homeFee:(m)=>`(إضافة ${m})`,
+        shopAddr:(a)=>a?`العنوان: ${a}`:'العنوان بيوصلك على واتساب مع تأكيد الحجز.', noExtra:'بدون إضافة', other:'أخرى',
+        shopFields:(a)=>(a?'عنوان المحل: '+a:'عنوان المحل هيوصلك على واتساب مع تأكيد الحجز')+' — تعالى قبل ميعادك بـ ٥ دقايق.',
+        today:'النهارده', tomorrow:'بكرة', pickDay:'اختار اليوم الأول', payNote:(p)=>`بيانات التحويل (${p}) هتوصلك على واتساب مع تأكيد الحجز.`,
+        atYou:'عندك', atShop:'في المحل', gpsNo:'المتصفح ده مش بيدعم تحديد الموقع. اكتب العنوان بالتفصيل.', gpsWait:'جارٍ تحديد موقعك…',
+        gpsOk:'تم تحديد موقعك ✓', gpsMap:'شوفه على الخريطة', gpsAgain:'تحديث موقعي', gpsFail:'ما قدرناش نحدد موقعك. اسمح للمتصفح بالموقع أو اكتب العنوان بالتفصيل.',
+        eSvc:'اختار نوع الغسيل', eMake:'اختار ماركة العربية', eModel:'اكتب موديل العربية', eArea:'اختار المنطقة', eAddr:'حدد موقعك أو اكتب العنوان بالتفصيل',
+        eWhen:'اختار اليوم والساعة', eName:'اكتب اسمك', ePhone:'رقم الموبايل لازم يكون ١١ رقم ويبدأ بـ 010 أو 011 أو 012 أو 015',
+        sending:'جارٍ الحجز…', failed:'الحجز ما اتسجلش. اتأكد من النت وجرّب تاني، ولو المشكلة فضلت ابعتلنا على واتساب.', total:'الإجمالي',
+        pay:{ cash:'كاش', instapay:'إنستاباي', wallet:'محفظة' }, am:'ص', pm:'م',
+        title:'LuxuryCare | غسيل عربيات في المقطم والتجمع والمعادي' },
+  en: { cur:'EGP', mins:(n)=>`EGP · about ${n} min`, areaSub:'Home service + shop', homeFee:(m)=>`(+${m})`,
+        shopAddr:(a)=>a?`Address: ${a}`:'We’ll send you the address on WhatsApp with your confirmation.', noExtra:'No extra', other:'Other',
+        shopFields:(a)=>(a?'Shop address: '+a:'We’ll send you the shop address on WhatsApp with your confirmation')+' — please arrive 5 minutes early.',
+        today:'Today', tomorrow:'Tomorrow', pickDay:'Choose a day first', payNote:(p)=>`${p} transfer details will be sent to you on WhatsApp with your confirmation.`,
+        atYou:'At your place', atShop:'At the shop', gpsNo:'This browser can’t share location. Please type your full address.', gpsWait:'Finding your location…',
+        gpsOk:'Location set ✓', gpsMap:'View on map', gpsAgain:'Update my location', gpsFail:'We couldn’t get your location. Allow location access or type your full address.',
+        eSvc:'Choose a wash type', eMake:'Choose the car make', eModel:'Enter the car model', eArea:'Choose your area', eAddr:'Share your location or type your full address',
+        eWhen:'Choose a day and time', eName:'Enter your name', ePhone:'Mobile number must be 11 digits starting with 010, 011, 012 or 015',
+        sending:'Booking…', failed:'Your booking didn’t go through. Check your connection and try again, or message us on WhatsApp.', total:'Total',
+        pay:{ cash:'Cash', instapay:'InstaPay', wallet:'Wallet' }, am:'AM', pm:'PM',
+        title:'LuxuryCare | Car Wash in Mokattam, New Cairo & Maadi' },
+};
+let LANG = document.documentElement.lang === 'en' ? 'en' : 'ar';
+const T = () => TXT[LANG];
+const LOC = () => (LANG === 'en' ? 'en-GB' : 'ar-EG');
+const nm = (o) => (LANG === 'en' && o.en ? o.en : o.name);
+const AR_TEXT = {};
+document.querySelectorAll('[data-i18n]').forEach((el) => { AR_TEXT[el.dataset.i18n] = el.innerHTML; });
+document.querySelectorAll('[data-i18n-ph]').forEach((el) => { AR_TEXT['ph:' + el.dataset.i18nPh] = el.placeholder; });
+
+
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const money = (n) => n.toLocaleString('ar-EG') + ' ج.م';
-const areaName = (id) => (CONFIG.areas.find((a) => a.id === id) || {}).name || id;
+const money = (n) => n.toLocaleString(LOC()) + ' ' + T().cur;
+const areaName = (id) => { const a = CONFIG.areas.find((x) => x.id === id); return a ? nm(a) : id; };
+const areaNameAr = (id) => (CONFIG.areas.find((a) => a.id === id) || {}).name || id;
 const svcById = (id) => CONFIG.services.find((s) => s.id === id);
 const carById = (id) => CONFIG.cars.find((c) => c.id === id);
 const pad = (n) => String(n).padStart(2, '0');
 const ymd = (d) => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
-const fmtDay = (s) => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString('ar-EG', { weekday: 'long', day: 'numeric', month: 'long' }); };
-const fmtTime = (h) => { const hh = Number(h); const x = hh % 12 || 12; return x.toLocaleString('ar-EG') + ':٠٠ ' + (hh < 12 ? 'ص' : 'م'); };
+const fmtDay = (s, lc) => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString(lc || LOC(), { weekday: 'long', day: 'numeric', month: 'long' }); };
+const fmtTime = (h, lg) => { const L = lg || LANG; const hh = Number(h); const x = hh % 12 || 12; return L === 'en' ? `${x}:00 ${hh < 12 ? 'AM' : 'PM'}` : x.toLocaleString('ar-EG') + ':٠٠ ' + (hh < 12 ? 'ص' : 'م'); };
 const val = (name) => { const el = document.querySelector(`input[name="${name}"]:checked`); return el ? el.value : ''; };
 let coords = null;
 
 /* ═══════ الصفحة الرئيسية ═══════ */
-$('#areasList').innerHTML = CONFIG.areas.map((a) => `<div class="area"><b>${esc(a.name)}</b><small>نيجيلك + المحل</small></div>`).join('');
-$('#svcGrid').innerHTML = CONFIG.services.map((s) => `
+function renderHome() {
+  $('#areasList').innerHTML = CONFIG.areas.map((a) => `<div class="area"><b>${esc(nm(a))}</b><small>${T().areaSub}</small></div>`).join('');
+  $('#svcGrid').innerHTML = CONFIG.services.map((s) => `
   <div class="svc">
-    <h3>${esc(s.name)}</h3>
-    <div class="price">${s.price.toLocaleString('ar-EG')} <small>ج.م · حوالي ${s.mins.toLocaleString('ar-EG')} دقيقة</small></div>
-    <ul>${s.items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>
+    <h3>${esc(nm(s))}</h3>
+    <div class="price">${s.price.toLocaleString(LOC())} <small>${T().mins(s.mins.toLocaleString(LOC()))}</small></div>
+    <ul>${(LANG === 'en' ? s.itemsEn : s.items).map((i) => `<li>${esc(i)}</li>`).join('')}</ul>
   </div>`).join('');
-$('#homeFeeTxt').textContent = `(إضافة ${money(CONFIG.homeFee)})`;
-$('#shopAddrTxt').textContent = CONFIG.shopAddress ? `العنوان: ${CONFIG.shopAddress}` : 'العنوان بيوصلك على واتساب مع تأكيد الحجز.';
+  $('#homeFeeTxt').textContent = T().homeFee(money(CONFIG.homeFee));
+  $('#shopAddrTxt').textContent = T().shopAddr(CONFIG.shopAddress);
+}
 
 /* ═══════ فورم الحجز ═══════ */
 const opt = (name, id, value, title, sub, checked) =>
   `<div class="opt"><input type="radio" name="${name}" id="${id}" value="${value}" ${checked ? 'checked' : ''}><label for="${id}"><b>${title}</b><small>${sub}</small></label></div>`;
 
-$('#svcOpts').innerHTML = CONFIG.services.map((s, i) => opt('svc', 'svc-' + s.id, s.id, esc(s.name), money(s.price), i === 2)).join('');
-$('#carOpts').innerHTML = CONFIG.cars.map((c, i) => opt('car', 'car-' + c.id, c.id, esc(c.name), c.extra ? '+ ' + money(c.extra) : 'بدون إضافة', i === 0)).join('');
-$('#area').innerHTML += CONFIG.areas.map((a) => `<option value="${a.id}">${esc(a.name)}</option>`).join('');
-$('#carMake').innerHTML += [...Object.keys(MAKES), 'أخرى'].map((m) => `<option>${esc(m)}</option>`).join('');
-$('#carMake').addEventListener('change', () => {
-  $('#modelList').innerHTML = (MAKES[$('#carMake').value] || []).map((m) => `<option value="${esc(m)}">`).join('');
-  $('#carModel').value = '';
-});
-$('#shopFields').textContent = (CONFIG.shopAddress ? 'عنوان المحل: ' + CONFIG.shopAddress : 'عنوان المحل هيوصلك على واتساب مع تأكيد الحجز') + ' — تعالى قبل ميعادك بـ ٥ دقايق.';
+function renderFormOpts() {
+  const svc = val('svc') || 'full', car = val('car') || 'sedan', area = $('#area').value, mk = $('#carMake').selectedIndex;
+  $('#svcOpts').innerHTML = CONFIG.services.map((s) => opt('svc', 'svc-' + s.id, s.id, esc(nm(s)), money(s.price), s.id === svc)).join('');
+  $('#carOpts').innerHTML = CONFIG.cars.map((c) => opt('car', 'car-' + c.id, c.id, esc(nm(c)), c.extra ? '+ ' + money(c.extra) : T().noExtra, c.id === car)).join('');
+  const ia = LANG === 'en' ? 1 : 0;
+  $('#area').innerHTML = `<option value="">${esc(LANG === 'en' ? EN.oArea : AR_TEXT.oArea)}</option>` + CONFIG.areas.map((a) => `<option value="${a.id}">${esc(nm(a))}</option>`).join('');
+  $('#area').value = area;
+  $('#carMake').innerHTML = `<option value="">${esc(LANG === 'en' ? EN.oMake : AR_TEXT.oMake)}</option>` + MAKES.map((m) => `<option>${esc(m[ia])}</option>`).join('') + `<option>${T().other}</option>`;
+  if (mk > 0) { $('#carMake').selectedIndex = mk; fillModels(false); }
+  $('#shopFields').textContent = T().shopFields(CONFIG.shopAddress);
+}
+function fillModels(clear) {
+  const i = $('#carMake').selectedIndex - 1, m = MAKES[i];
+  $('#modelList').innerHTML = (m ? m[LANG === 'en' ? 3 : 2] : []).map((x) => `<option value="${esc(x)}">`).join('');
+  if (clear) $('#carModel').value = '';
+}
+$('#carMake').addEventListener('change', () => fillModels(true));
 
 function buildDays() {
-  const out = []; const now = new Date();
+  const keep = val('day'); const out = []; const now = new Date();
   for (let i = 0; i < CONFIG.daysAhead; i++) {
     const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i);
-    const label = i === 0 ? 'النهارده' : i === 1 ? 'بكرة' : d.toLocaleDateString('ar-EG', { weekday: 'long' });
-    out.push(opt('day', 'day-' + i, ymd(d), label, d.toLocaleDateString('ar-EG', { day: 'numeric', month: 'short' }), false));
+    const label = i === 0 ? T().today : i === 1 ? T().tomorrow : d.toLocaleDateString(LOC(), { weekday: 'long' });
+    out.push(opt('day', 'day-' + i, ymd(d), label, d.toLocaleDateString(LOC(), { day: 'numeric', month: 'short' }), ymd(d) === keep));
   }
   $('#dayOpts').innerHTML = out.join('');
 }
 function buildTimes() {
-  const day = val('day'); const now = new Date(); const out = [];
+  const day = val('day'), keepT = val('time'); const now = new Date(); const out = [];
   for (let h = CONFIG.openHour; h < CONFIG.closeHour; h++) {
     const past = day === ymd(now) && h <= now.getHours();
-    out.push(`<div class="opt"><input type="radio" name="time" id="t-${h}" value="${h}" ${past ? 'disabled' : ''}><label for="t-${h}"><b>${fmtTime(h)}</b></label></div>`);
+    out.push(`<div class="opt"><input type="radio" name="time" id="t-${h}" value="${h}" ${past ? 'disabled' : ''} ${String(h) === keepT && !past ? 'checked' : ''}><label for="t-${h}"><b>${fmtTime(h)}</b></label></div>`);
   }
-  $('#timeOpts').innerHTML = day ? out.join('') : '<div class="hint" style="color:var(--muted)">اختار اليوم الأول</div>';
+  $('#timeOpts').innerHTML = day ? out.join('') : `<div class="hint" style="color:var(--muted)">${T().pickDay}</div>`;
 }
 
 function calc() {
@@ -469,12 +546,12 @@ function refresh() {
   $('#homeFields').classList.toggle('hidden', mode !== 'home');
   $('#shopFields').classList.toggle('hidden', mode !== 'shop');
   const pay = val('pay'), pn = $('#payNote');
-  if (pay === 'instapay' || pay === 'wallet') { pn.textContent = `بيانات التحويل (${PAY[pay]}) هتوصلك على واتساب مع تأكيد الحجز.`; pn.classList.remove('hidden'); }
+  if (pay === 'instapay' || pay === 'wallet') { pn.textContent = T().payNote(T().pay[pay]); pn.classList.remove('hidden'); }
   else pn.classList.add('hidden');
   const p = calc();
-  $('#s-svc').textContent = s ? s.name : '—';
-  $('#s-car').textContent = c ? c.name : '—';
-  $('#s-mode').textContent = mode === 'home' ? 'عندك' + ($('#area').value ? ' · ' + areaName($('#area').value) : '') : 'في المحل';
+  $('#s-svc').textContent = s ? nm(s) : '—';
+  $('#s-car').textContent = c ? nm(c) : '—';
+  $('#s-mode').textContent = mode === 'home' ? T().atYou + ($('#area').value ? ' · ' + areaName($('#area').value) : '') : T().atShop;
   $('#s-when').textContent = day && time ? fmtDay(day) + ' · ' + fmtTime(time) : day ? fmtDay(day) : '—';
   $('#s-base').textContent = money(p.base);
   $('#s-car-fee').textContent = p.carFee ? money(p.carFee) : '—';
@@ -487,18 +564,23 @@ $('#bookForm').addEventListener('input', refresh);
 /* GPS */
 $('#gpsBtn').addEventListener('click', () => {
   const msg = $('#gpsMsg');
-  if (!navigator.geolocation) { msg.textContent = 'المتصفح ده مش بيدعم تحديد الموقع. اكتب العنوان بالتفصيل.'; return; }
-  msg.textContent = 'جارٍ تحديد موقعك…';
+  if (!navigator.geolocation) { msg.textContent = T().gpsNo; return; }
+  msg.textContent = T().gpsWait;
   navigator.geolocation.getCurrentPosition(
     (pos) => {
       coords = { latitude: Number(pos.coords.latitude.toFixed(6)), longitude: Number(pos.coords.longitude.toFixed(6)) };
-      msg.innerHTML = `تم تحديد موقعك ✓ <a href="https://maps.google.com/?q=${coords.latitude},${coords.longitude}" target="_blank" rel="noopener">شوفه على الخريطة</a>`;
-      $('#gpsBtn').textContent = 'تحديث موقعي';
+      gpsShow();
     },
-    () => { msg.textContent = 'ما قدرناش نحدد موقعك. اسمح للمتصفح بالموقع أو اكتب العنوان بالتفصيل.'; },
+    () => { msg.textContent = T().gpsFail; },
     { enableHighAccuracy: true, timeout: 15000 },
   );
 });
+
+function gpsShow() {
+  if (!coords) { $('#gpsBtn').textContent = LANG === 'en' ? EN.gpsBtn : AR_TEXT.gpsBtn; $('#gpsMsg').textContent = LANG === 'en' ? EN.gpsHint : AR_TEXT.gpsHint; return; }
+  $('#gpsMsg').innerHTML = `${T().gpsOk} <a href="https://maps.google.com/?q=${coords.latitude},${coords.longitude}" target="_blank" rel="noopener">${T().gpsMap}</a>`;
+  $('#gpsBtn').textContent = T().gpsAgain;
+}
 
 function newCode() {
   const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'; let s = '';
@@ -512,14 +594,14 @@ $('#bookForm').addEventListener('submit', async (e) => {
   const mode = val('mode'), name = $('#name').value.trim(), phone = $('#phone').value.replace(/[\s\-()]/g, '');
   const address = $('#address').value.trim(), area = $('#area').value;
   const problems = [];
-  if (!val('svc')) problems.push('اختار نوع الغسيل');
-  if (!$('#carMake').value) problems.push('اختار ماركة العربية');
-  if (!$('#carModel').value.trim()) problems.push('اكتب موديل العربية');
-  if (!area) problems.push('اختار المنطقة');
-  if (mode === 'home' && !coords && address.length < 10) problems.push('حدد موقعك أو اكتب العنوان بالتفصيل');
-  if (!val('day') || !val('time')) problems.push('اختار اليوم والساعة');
-  if (name.length < 2) problems.push('اكتب اسمك');
-  if (!/^(?:\+20|0020|0)?1[0125]\d{8}$/.test(phone)) problems.push('رقم الموبايل لازم يكون ١١ رقم ويبدأ بـ 010 أو 011 أو 012 أو 015');
+  if (!val('svc')) problems.push(T().eSvc);
+  if (!$('#carMake').value) problems.push(T().eMake);
+  if (!$('#carModel').value.trim()) problems.push(T().eModel);
+  if (!area) problems.push(T().eArea);
+  if (mode === 'home' && !coords && address.length < 10) problems.push(T().eAddr);
+  if (!val('day') || !val('time')) problems.push(T().eWhen);
+  if (name.length < 2) problems.push(T().eName);
+  if (!/^(?:\+20|0020|0)?1[0125]\d{8}$/.test(phone)) problems.push(T().ePhone);
   if (problems.length) { err.textContent = problems.join(' · '); return; }
 
   const p = calc();
@@ -543,14 +625,14 @@ $('#bookForm').addEventListener('submit', async (e) => {
     payment_method: val('pay'),
     estimated_total: p.total,
     status: 'new',
-    source: 'website',
+    source: LANG === 'en' ? 'website-en' : 'website',
   };
 
-  const btn = $('#submitBtn'); btn.disabled = true; btn.textContent = 'جارٍ الحجز…';
+  const btn = $('#submitBtn'); btn.disabled = true; btn.textContent = T().sending;
   const { error } = await supabase.from('bookings').insert(b);
-  btn.disabled = false; btn.textContent = 'تأكيد الحجز';
+  btn.disabled = false; btn.textContent = LANG === 'en' ? EN.submit : AR_TEXT.submit;
   if (error) {
-    err.textContent = 'الحجز ما اتسجلش. اتأكد من النت وجرّب تاني، ولو المشكلة فضلت ابعتلنا على واتساب.';
+    err.textContent = T().failed;
     console.error(error);
     return;
   }
@@ -559,31 +641,31 @@ $('#bookForm').addEventListener('submit', async (e) => {
 
 function bookingText(b) {
   const s = svcById(b.services[0]), c = carById(b.car_size);
+  // الرسالة دي رايحة للمحل، فبتفضل عربي دايمًا
   return [
     `حجز جديد LuxuryCare — ${b.id}`,
     `الاسم: ${b.name}`, `الموبايل: ${b.phone}`,
     `الخدمة: ${s ? s.name : b.services[0]}`,
     `العربية: ${b.car_make} ${b.car_model}${b.car_year ? ' ' + b.car_year : ''} (${c ? c.name : b.car_size})`,
-    `المكان: ${b.service_mode === 'home' ? 'عند العميل — ' + areaName(b.area) : 'في المحل'}`,
+    `المكان: ${b.service_mode === 'home' ? 'عند العميل — ' + areaNameAr(b.area) : 'في المحل'}`,
     b.address ? `العنوان: ${b.address}` : '',
     b.coords ? `اللوكيشن: https://maps.google.com/?q=${b.coords.latitude},${b.coords.longitude}` : '',
-    `الميعاد: ${fmtDay(b.preferred_day)} الساعة ${fmtTime(parseInt(b.preferred_slot, 10))}`,
-    `الدفع: ${PAY[b.payment_method]} — الإجمالي ${b.estimated_total} ج.م`,
+    `الميعاد: ${fmtDay(b.preferred_day, 'ar-EG')} الساعة ${fmtTime(parseInt(b.preferred_slot, 10), 'ar')}`,
+    `الدفع: ${TXT.ar.pay[b.payment_method]} — الإجمالي ${b.estimated_total} ج.م`,
+    LANG === 'en' ? 'لغة العميل: English' : '',
     b.notes ? `ملاحظات: ${b.notes}` : '',
   ].filter(Boolean).join('\n');
 }
 function showDone(b) {
   $('#doneCode').textContent = b.id;
-  $('#doneSummary').innerHTML = `<span><b>${esc(svcById(b.services[0]).name)}</b></span><span>${esc(fmtDay(b.preferred_day))} · ${fmtTime(parseInt(b.preferred_slot, 10))}</span><span>الإجمالي <b>${money(b.estimated_total)}</b></span>`;
+  $('#doneSummary').innerHTML = `<span><b>${esc(nm(svcById(b.services[0])))}</b></span><span>${esc(fmtDay(b.preferred_day))} · ${fmtTime(parseInt(b.preferred_slot, 10))}</span><span>${T().total} <b>${money(b.estimated_total)}</b></span>`;
   $('#doneWa').href = 'https://wa.me/' + CONFIG.shopWhatsApp + '?text=' + encodeURIComponent(bookingText(b));
   $('#doneShopNum').textContent = '+' + CONFIG.shopWhatsApp;
   show('done');
 }
 $('#againBtn').addEventListener('click', () => {
-  $('#bookForm').reset(); coords = null;
-  $('#gpsBtn').textContent = 'حدد موقعي الحالي';
-  $('#gpsMsg').textContent = 'بيبعتلنا مكانك بالظبط على الخريطة. اختياري لو العنوان واضح.';
-  buildTimes(); refresh(); location.hash = 'book'; show('book');
+  $('#bookForm').reset(); coords = null; gpsShow();
+  renderFormOpts(); buildDays(); buildTimes(); refresh(); location.hash = 'book'; show('book');
 });
 
 /* ═══════ التنقل ═══════ */
@@ -600,7 +682,24 @@ function route() {
 }
 window.addEventListener('hashchange', route);
 
-buildDays(); buildTimes(); refresh(); route();
+function applyLang() {
+  const en = LANG === 'en';
+  document.documentElement.lang = LANG; document.documentElement.dir = en ? 'ltr' : 'rtl';
+  document.querySelectorAll('[data-i18n]').forEach((el) => { const k = el.dataset.i18n; el.innerHTML = en ? (EN[k] ?? AR_TEXT[k]) : AR_TEXT[k]; });
+  document.querySelectorAll('[data-i18n-ph]').forEach((el) => { const k = el.dataset.i18nPh; el.placeholder = en ? EN[k] : AR_TEXT['ph:' + k]; });
+  const lb = $('#langBtn'); lb.textContent = en ? 'عربي' : 'EN'; lb.lang = en ? 'ar' : 'en'; lb.setAttribute('aria-label', en ? 'التحويل للعربي' : 'Switch to English');
+  document.title = T().title;
+  $('.brand').setAttribute('aria-label', en ? 'LuxuryCare home' : 'LuxuryCare الرئيسية');
+  renderHome(); renderFormOpts(); buildDays(); buildTimes(); gpsShow(); refresh();
+  $('#formErr').textContent = '';
+}
+$('#langBtn').addEventListener('click', () => {
+  LANG = LANG === 'en' ? 'ar' : 'en';
+  try { localStorage.setItem('lc_lang', LANG); } catch (e) {}
+  applyLang();
+});
+
+applyLang(); route();
 </script>
 </body>
 </html>

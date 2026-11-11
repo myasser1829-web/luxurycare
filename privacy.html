@@ -2,6 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
+<script>try{var q=new URLSearchParams(location.search).get('lang');var L=q||localStorage.getItem('lc_lang');if(L==='en'){document.documentElement.lang='en';document.documentElement.dir='ltr';}}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0B0D10">
 <title>سياسة الخصوصية | LuxuryCare</title>
@@ -30,12 +31,15 @@ ul{padding-inline-start:22px;margin:8px 0}
 .box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-top:10px}
 footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px}
 footer .bar{flex-wrap:wrap;gap:8px}
+.hidden{display:none}
+.lang-btn{font:inherit;font-size:14px;font-weight:700;padding:6px 13px;border-radius:999px;background:var(--gold);color:#1a1408;border:0;cursor:pointer;margin-inline-start:12px}
 :focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 </style>
 </head>
 <body>
-<header><div class="bar"><a class="brand" href="/">Luxury<span>Care</span></a><a href="/#book">احجز دلوقتي</a></div></header>
+<header><div class="bar"><a class="brand" href="/">Luxury<span>Care</span></a><span><a href="/#book" data-t="احجز دلوقتي|Book now">احجز دلوقتي</a><button type="button" class="lang-btn" id="langBtn">EN</button></span></div></header>
 <main>
+<div id="pAr">
   <h1>سياسة الخصوصية</h1>
   <p class="muted">آخر تحديث: 11 نوفمبر 2026</p>
   <p>في LuxuryCare بنحترم خصوصيتك. الصفحة دي بتشرح ببساطة إيه البيانات اللي بناخدها لما تحجز غسيل عربية من الموقع (luxurycare-eg.com) أو من تطبيق LuxuryCare، وبنعمل بيها إيه.</p>
@@ -79,7 +83,72 @@ footer .bar{flex-wrap:wrap;gap:8px}
   </div>
 
   <p class="muted" style="margin-top:24px">لو غيّرنا السياسة دي هننشر النسخة الجديدة هنا ونحدّث تاريخ «آخر تحديث».</p>
+</div>
+<div id="pEn" class="hidden">
+  <h1>Privacy Policy</h1>
+  <p class="muted">Last updated: 11 November 2026</p>
+  <p>LuxuryCare respects your privacy. This page explains, in plain terms, what information we collect when you book a car wash through our website (luxurycare-eg.com) or the LuxuryCare app, and how we use it.</p>
+
+  <h2>Information we collect</h2>
+  <p>We only collect what we need to carry out your booking:</p>
+  <ul>
+    <li><b>Name and mobile number</b>: to confirm your booking and contact you.</li>
+    <li><b>Car make, model and size</b>: to set the right service and price.</li>
+    <li><b>Area, address or map location</b>: if you choose on-site service, so we can reach you. Your location is only collected when you tap “Use my current location” and allow it.</li>
+    <li><b>Wash type, day and time, payment method, and any notes</b> you add.</li>
+  </ul>
+  <p>We do <b>not</b> ask for or store any bank card details or passwords. Payment is in cash, or by an InstaPay or mobile-wallet transfer that you make yourself from your own app.</p>
+
+  <h2>How we use your information</h2>
+  <ul>
+    <li>To confirm bookings, organise appointments and reach your location.</li>
+    <li>To contact you about your booking by WhatsApp or phone, and to send transfer details if you chose InstaPay or a wallet.</li>
+    <li>To improve our service (for example, understanding which areas and times are most requested).</li>
+  </ul>
+  <p>We do not sell your information or use it for advertising, and we will not send you marketing messages without your consent.</p>
+
+  <h2>Where your information is stored</h2>
+  <p>Bookings are stored in a secured database on Supabase, accessible only to the LuxuryCare team. When a new booking is made, a notification is sent to our company email. The website is hosted on GitHub Pages and all connections are encrypted (HTTPS).</p>
+  <p>We keep booking information for as long as we need it for the service and our records, and you can ask us to delete it at any time.</p>
+
+  <h2>Who else can see your information</h2>
+  <p>No one other than the LuxuryCare team, plus the technical providers we use to run the service (database hosting and email), who use it only to provide that service. We may share information if required by Egyptian law.</p>
+
+  <h2>Cookies and tracking</h2>
+  <p>The website has no ads or advertising trackers. Your browser may store small files so the site loads faster, remembers your language, or works as an app on your Home Screen.</p>
+
+  <h2>Your rights</h2>
+  <p>You can ask at any time to see, correct or delete your information, and you can cancel any booking before its time. Just message us and we’ll reply as soon as possible.</p>
+
+  <h2>Contact us</h2>
+  <div class="box">
+    <p style="margin:0">Email: <a href="mailto:info@luxurycare-eg.com">info@luxurycare-eg.com</a><br>
+    WhatsApp: <a href="https://wa.me/201500184997" dir="ltr">01500184997</a><br>
+    Areas: Mokattam – Fifth Settlement (New Cairo) – Maadi, Cairo</p>
+  </div>
+
+  <p class="muted" style="margin-top:24px">If we change this policy, we’ll publish the new version here and update the “Last updated” date.</p>
+</div>
 </main>
-<footer><div class="bar"><span>© 2026 LuxuryCare</span><span><a href="/">الرئيسية</a> · <a href="/app">التطبيق</a></span></div></footer>
+<footer><div class="bar"><span>© 2026 LuxuryCare</span><span><a href="/" data-t="الرئيسية|Home">الرئيسية</a> · <a href="/app" data-t="التطبيق|App">التطبيق</a></span></div></footer>
+<script>
+  var lang = document.documentElement.lang === 'en' ? 'en' : 'ar';
+  function apply() {
+    var en = lang === 'en';
+    document.documentElement.lang = lang; document.documentElement.dir = en ? 'ltr' : 'rtl';
+    document.getElementById('pAr').classList.toggle('hidden', en);
+    document.getElementById('pEn').classList.toggle('hidden', !en);
+    document.querySelectorAll('[data-t]').forEach(function (el) { el.textContent = el.dataset.t.split('|')[en ? 1 : 0]; });
+    var b = document.getElementById('langBtn'); b.textContent = en ? 'عربي' : 'EN';
+    b.setAttribute('aria-label', en ? 'التحويل للعربي' : 'Switch to English');
+    document.title = en ? 'Privacy Policy | LuxuryCare' : 'سياسة الخصوصية | LuxuryCare';
+  }
+  document.getElementById('langBtn').addEventListener('click', function () {
+    lang = lang === 'en' ? 'ar' : 'en';
+    try { localStorage.setItem('lc_lang', lang); } catch (e) {}
+    apply();
+  });
+  apply();
+</script>
 </body>
 </html>

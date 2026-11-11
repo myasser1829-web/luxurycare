@@ -2,6 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
+<script>try{var q=new URLSearchParams(location.search).get('lang');var L=q||localStorage.getItem('lc_lang');if(L==='en'){document.documentElement.lang='en';document.documentElement.dir='ltr';}}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0B0D10">
 <title>تطبيق LuxuryCare</title>
@@ -33,43 +34,46 @@ p{margin:0;color:var(--muted)}
 .steps{text-align:right;background:var(--ink);border:1px solid var(--line);border-radius:14px;padding:14px 18px;font-size:14px;color:var(--muted)}
 .steps ol{margin:6px 0 0;padding-inline-start:20px}.steps b{color:var(--text)}
 .note{font-size:13px}.hidden{display:none}
+.lang-btn{position:fixed;top:14px;inset-inline-end:14px;font:inherit;font-size:14px;font-weight:700;padding:7px 14px;border-radius:999px;background:var(--gold);color:#1a1408;border:0;cursor:pointer}
+[dir=ltr] .steps{text-align:left}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 </style>
 </head>
 <body>
+<button type="button" class="lang-btn" id="langBtn">EN</button>
 <main class="card">
   <img class="icon" src="/icon-192.png" width="96" height="96" alt="أيقونة LuxuryCare">
   <h1>Luxury<span>Care</span></h1>
-  <p>احجز غسيل عربيتك في المقطم والتجمع والمعادي من موبايلك</p>
+  <p data-i18n="sub">احجز غسيل عربيتك في المقطم والتجمع والمعادي من موبايلك</p>
 
   <div id="android">
-    <a class="btn primary" id="dl" href="https://github.com/myasser1829-web/luxurycare/releases/latest/download/luxurycare.apk">تحميل التطبيق لأندرويد</a>
+    <a class="btn primary" id="dl" data-i18n="dl" href="https://github.com/myasser1829-web/luxurycare/releases/latest/download/luxurycare.apk">تحميل التطبيق لأندرويد</a>
   </div>
   <div id="ios" class="hidden">
-    <p style="color:var(--text)">على الآيفون، سطّب LuxuryCare من Safari في 3 خطوات، وهيظهر على الشاشة الرئيسية زي أي تطبيق:</p>
+    <p style="color:var(--text)" data-i18n="iosP">على الآيفون، سطّب LuxuryCare من Safari في 3 خطوات، وهيظهر على الشاشة الرئيسية زي أي تطبيق:</p>
     <div class="steps" style="margin-top:12px">
       <ol>
-        <li>افتح <b>luxurycare-eg.com</b> من متصفح <b>Safari</b></li>
-        <li>دوس زرار <b>المشاركة</b> <span aria-hidden="true">⬆️</span> (المربع اللي فيه سهم لفوق) تحت الشاشة</li>
-        <li>انزل واختار <b>إضافة إلى الشاشة الرئيسية</b> وبعدين دوس <b>إضافة</b></li>
+        <li data-i18n="i1">افتح <b>luxurycare-eg.com</b> من متصفح <b>Safari</b></li>
+        <li data-i18n="i2">دوس زرار <b>المشاركة</b> <span aria-hidden="true">⬆️</span> (المربع اللي فيه سهم لفوق) تحت الشاشة</li>
+        <li data-i18n="i3">انزل واختار <b>إضافة إلى الشاشة الرئيسية</b> وبعدين دوس <b>إضافة</b></li>
       </ol>
     </div>
-    <a class="btn primary" style="margin-top:14px" href="https://luxurycare-eg.com/">افتح الموقع عشان تسطّبه</a>
-    <p class="note" style="margin-top:8px">تطبيق App Store الرسمي جاي قريب.</p>
+    <a class="btn primary" style="margin-top:14px" href="https://luxurycare-eg.com/" data-i18n="openSite">افتح الموقع عشان تسطّبه</a>
+    <p class="note" style="margin-top:8px" data-i18n="soon">تطبيق App Store الرسمي جاي قريب.</p>
   </div>
-  <div id="installed" class="hidden"><p style="color:var(--text)">✅ LuxuryCare متسطّب عندك بالفعل.</p></div>
+  <div id="installed" class="hidden"><p style="color:var(--text)" data-i18n="installed">✅ LuxuryCare متسطّب عندك بالفعل.</p></div>
 
-  <a class="btn ghost" href="https://luxurycare-eg.com/#book">أو احجز من الموقع على طول</a>
+  <a class="btn ghost" href="https://luxurycare-eg.com/#book" data-i18n="orSite">أو احجز من الموقع على طول</a>
 
   <div class="steps" id="howto">
-    <b>بعد التحميل:</b>
+    <b data-i18n="after">بعد التحميل:</b>
     <ol>
-      <li>افتح الملف <b>luxurycare.apk</b> من الإشعارات أو من التنزيلات</li>
-      <li>لو ظهرلك «مصادر غير معروفة»، اسمح للمتصفح إنه يسطّب تطبيقات</li>
-      <li>دوس <b>تثبيت</b> وافتح التطبيق</li>
+      <li data-i18n="a1">افتح الملف <b>luxurycare.apk</b> من الإشعارات أو من التنزيلات</li>
+      <li data-i18n="a2">لو ظهرلك «مصادر غير معروفة»، اسمح للمتصفح إنه يسطّب تطبيقات</li>
+      <li data-i18n="a3">دوس <b>تثبيت</b> وافتح التطبيق</li>
     </ol>
   </div>
-  <p class="note">محتاج مساعدة؟ كلمنا واتساب <a href="https://wa.me/201500184997" style="color:var(--gold)" dir="ltr">01500184997</a> · <a href="/privacy" style="color:var(--muted)">سياسة الخصوصية</a></p>
+  <p class="note"><span data-i18n="help">محتاج مساعدة؟ كلمنا واتساب</span> <a href="https://wa.me/201500184997" style="color:var(--gold)" dir="ltr">01500184997</a> · <a href="/privacy" style="color:var(--muted)" data-i18n="privacy">سياسة الخصوصية</a></p>
 </main>
 <script>
   // آيفون: نخفي زرار الـ APK لأنه مش بيشتغل على iOS
@@ -85,6 +89,36 @@ p{margin:0;color:var(--muted)}
     document.getElementById('howto').classList.add('hidden');
     document.getElementById('ios').classList.remove('hidden');
   }
+  var EN = {
+    sub:'Book your car wash in Mokattam, New Cairo and Maadi from your phone',
+    dl:'Download the Android app',
+    iosP:'On iPhone, install LuxuryCare from Safari in 3 steps and it will appear on your Home Screen like any app:',
+    i1:'Open <b>luxurycare-eg.com</b> in <b>Safari</b>',
+    i2:'Tap the <b>Share</b> button <span aria-hidden="true">⬆️</span> (the square with an up arrow) at the bottom',
+    i3:'Scroll down, choose <b>Add to Home Screen</b>, then tap <b>Add</b>',
+    openSite:'Open the site to install it', soon:'The official App Store app is coming soon.',
+    installed:'✅ LuxuryCare is already installed on your phone.', orSite:'Or book on the website instead',
+    after:'After downloading:', a1:'Open <b>luxurycare.apk</b> from your notifications or Downloads',
+    a2:'If you see “Unknown sources”, allow your browser to install apps', a3:'Tap <b>Install</b> and open the app',
+    help:'Need help? WhatsApp us', privacy:'Privacy policy'
+  };
+  var AR = {}, els = document.querySelectorAll('[data-i18n]');
+  els.forEach(function (el) { AR[el.dataset.i18n] = el.innerHTML; });
+  var lang = document.documentElement.lang === 'en' ? 'en' : 'ar';
+  function apply() {
+    var en = lang === 'en';
+    document.documentElement.lang = lang; document.documentElement.dir = en ? 'ltr' : 'rtl';
+    els.forEach(function (el) { var k = el.dataset.i18n; el.innerHTML = en ? EN[k] : AR[k]; });
+    var b = document.getElementById('langBtn'); b.textContent = en ? 'عربي' : 'EN';
+    b.setAttribute('aria-label', en ? 'التحويل للعربي' : 'Switch to English');
+    document.title = en ? 'LuxuryCare App' : 'تطبيق LuxuryCare';
+  }
+  document.getElementById('langBtn').addEventListener('click', function () {
+    lang = lang === 'en' ? 'ar' : 'en';
+    try { localStorage.setItem('lc_lang', lang); } catch (e) {}
+    apply();
+  });
+  apply();
 </script>
 </body>
 </html>
